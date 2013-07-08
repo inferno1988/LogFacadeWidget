@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LogFacadeWidget</string>
+    <string name="widget_text">LogFacade</string>
+    <string name="default_log_level_text">@string/log_level_error</string>
+    <string name="log_level_caption">Current log level:</string>
+
+    <string name="log_level_off">OFF</string>
+    <string name="log_level_fatal">FATAL</string>
+    <string name="log_level_error">ERROR</string>
+    <string name="log_level_warn">WARN</string>
+    <string name="log_level_info">INFO</string>
+    <string name="log_level_debug">DEBUG</string>
+    <string name="log_level_verbose">VERBOSE</string>
+
+    <string-array name="log_levels">
+        <item>@string/log_level_off</item>
+        <item>@string/log_level_fatal</item>
+        <item>@string/log_level_error</item>
+        <item>@string/log_level_warn</item>
+        <item>@string/log_level_info</item>
+        <item>@string/log_level_debug</item>
+        <item>@string/log_level_verbose</item>
+    </string-array>
+
+    <string name="shared_prefs_name">log_facade_prefs</string>
+</resources>
