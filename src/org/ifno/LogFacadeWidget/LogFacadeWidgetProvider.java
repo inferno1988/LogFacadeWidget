@@ -28,13 +28,8 @@ public class LogFacadeWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Создаем новый RemoteViews
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.main);
-
-        final String sharedPrefsName = context.getResources().getString(R.string.shared_prefs_name);
         final String defaultLogLevelFromResources = context.getResources().getString(R.string.default_log_level_text);
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPrefsName, Context.MODE_MULTI_PROCESS);
-        final String defaultLogLevel = sharedPreferences.getString(KEY_LOG_LEVEL, defaultLogLevelFromResources);
-
-        remoteViews.setTextViewText(R.id.logLevel, defaultLogLevel);
+        remoteViews.setTextViewText(R.id.logLevel, defaultLogLevelFromResources);
 
         //Подготавливаем Intent для Broadcast
         Intent active = new Intent(context, LogFacadeWidgetProvider.class);
@@ -70,15 +65,10 @@ public class LogFacadeWidgetProvider extends AppWidgetProvider {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             appWidgetManager.updateAppWidget(new ComponentName(context, LogFacadeWidgetProvider.class), remoteViews);
 
-            final String sharedPrefsName = context.getResources().getString(R.string.shared_prefs_name);
-            final SharedPreferences sharedPreferences = context.getSharedPreferences(sharedPrefsName, Context.MODE_MULTI_PROCESS);
-            final SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(KEY_LOG_LEVEL, msg);
-            editor.commit();
-
-            Toast.makeText(context, sharedPreferences.getString(KEY_LOG_LEVEL, "NULL"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
             Intent logLevelUpdatedIntent = new Intent(ACTION_LOG_LEVEL_UPDATED);
+            logLevelUpdatedIntent.putExtra(KEY_LOG_LEVEL, msg);
             context.sendBroadcast(logLevelUpdatedIntent);
         }
         super.onReceive(context, intent);
